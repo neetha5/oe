@@ -10,7 +10,9 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/neetha5/oe.git'
+                git branch: 'master',
+                    url: 'https://github.com/neetha5/oe.git',
+                    credentialsId: 'github-token'
             }
         }
 
@@ -31,9 +33,15 @@ pipeline {
                 sh 'mvn package'
             }
         }
+
+        stage('Run Application') {
+            steps {
+                sh 'mvn exec:java -Dexec.mainClass="com.example.app.App"'
+            }
+        }
     }
 
-    post {
+   post {
         success {
             mail to: 'neethacn2004@gmail.com',
                  subject: "Build SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
@@ -46,3 +54,4 @@ pipeline {
         }
     }
 }
+
