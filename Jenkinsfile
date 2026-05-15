@@ -2,15 +2,15 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven3'
-        jdk 'JDK17'
+        maven 'Maven'
+        jdk 'JDK21'
     }
 
     stages {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/Naveen04jan/demo-app.git'
+                git 'https://github.com/neetha5/oe.git'
             }
         }
 
